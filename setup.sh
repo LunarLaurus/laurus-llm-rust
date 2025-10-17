@@ -25,6 +25,7 @@ for step in steps/*.sh; do
     source "$step"
 done
 
+step_install_rust
 # ================================================================
 # Generate recursive file/folder list from script root
 # ================================================================
@@ -62,7 +63,6 @@ step_generate_file_tree() {
 auto() {
     step_check_cuda
     step_install_deps
-    step_install_rust
     step_setup_rust_project
     step_build_llama_cpp
     step_download_model
@@ -77,7 +77,6 @@ menu() {
     echo
     echo "1) Check CUDA + NVIDIA"
     echo "2) Install Dependencies"
-    echo "3) Install Rust"
     echo "4) Setup Rust Project"
     echo "5) Build llama.cpp"
     echo "6) Download Model"
@@ -100,7 +99,6 @@ while true; do
     case "$choice" in
         1) step_check_cuda; pause ;;
         2) step_install_deps; pause ;;
-        3) step_install_rust; pause ;;
         4) step_setup_rust_project; pause ;;
         5) step_build_llama_cpp; pause ;;
         6) step_download_model; pause ;;

@@ -1,7 +1,5 @@
 #!/usr/bin/env bash
 step_build_and_run() {
-    pushd "$PROJECT_DIR" >/dev/null
-    
     log "Building server (release mode)..."
     cargo build --release || err "Build failed"
     
