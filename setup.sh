@@ -26,11 +26,12 @@ for step in steps/*.sh; do
 done
 
 # ================================================================
-# Generate recursive file/folder list
+# Generate recursive file/folder list from script root
 # ================================================================
 step_generate_file_tree() {
-    local root_dir=""
-    local output_file="file_tree.txt}"
+    local script_dir
+    script_dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+    local output_file="$script_dir/file_tree.txt"
     
     # Folders to ignore
     local ignore_dirs=(
@@ -42,19 +43,20 @@ step_generate_file_tree() {
         ".vscode"
     )
     
+    log "Generating file/folder tree for $script_dir, ignoring: ${ignore_dirs[*]}"
+    
     # Build find exclude arguments
     local exclude_args=()
     for d in "${ignore_dirs[@]}"; do
-        exclude_args+=(-path "$root_dir/$d" -prune -o)
+        exclude_args+=(-path "$script_dir/$d" -prune -o)
     done
     
-    log "Generating file/folder tree for $root_dir, ignoring: ${ignore_dirs[*]}"
-    
     # Run find with exclusions
-    find "$root_dir" "${exclude_args[@]}" -print | sort > "$output_file"
+    find "$script_dir" "${exclude_args[@]}" -print | sort > "$output_file"
     
-    log "File tree saved to $output_file"
+    log "✅ File tree saved to $output_file"
 }
+
 
 
 auto() {
