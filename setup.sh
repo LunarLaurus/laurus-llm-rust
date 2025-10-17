@@ -29,8 +29,8 @@ done
 # Generate recursive file/folder list
 # ================================================================
 step_generate_file_tree() {
-    local root_dir="${1:-$PROJECT_DIR}"
-    local output_file="${2:-$PROJECT_DIR/file_tree.txt}"
+    local root_dir=""
+    local output_file="file_tree.txt}"
     
     # Folders to ignore
     local ignore_dirs=(
